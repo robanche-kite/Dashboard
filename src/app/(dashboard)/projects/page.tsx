@@ -42,7 +42,7 @@ export default async function ProjectsPage() {
       {projects.length === 0 ? (
         <div className="flex flex-col items-center gap-4 rounded-2xl border border-dashed border-border/60 bg-card/50 px-6 py-16 text-center">
           <div className="flex size-16 items-center justify-center rounded-2xl bg-emerald-500/10">
-            <FolderOpen className="size-7 text-emerald-400" />
+            <FolderOpen className="size-7 text-emerald-600" />
           </div>
           <div>
             <p className="font-medium">No projects yet</p>
@@ -79,7 +79,7 @@ export default async function ProjectsPage() {
                         {p.description ?? "No description"}
                       </p>
                     </div>
-                    <ArrowRight className="ml-2 size-4 shrink-0 text-muted-foreground opacity-0 transition-all group-hover:translate-x-0.5 group-hover:text-emerald-400 group-hover:opacity-100" />
+                    <ArrowRight className="ml-2 size-4 shrink-0 text-muted-foreground opacity-0 transition-all group-hover:translate-x-0.5 group-hover:text-emerald-600 group-hover:opacity-100" />
                   </div>
 
                   {/* Progress bar */}
@@ -87,7 +87,7 @@ export default async function ProjectsPage() {
                     <div className="mt-4">
                       <div className="flex items-center justify-between text-xs">
                         <span className="text-muted-foreground">Progress</span>
-                        <span className="font-medium text-emerald-400">{progress}%</span>
+                        <span className="font-medium text-emerald-600">{progress}%</span>
                       </div>
                       <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-muted">
                         <div

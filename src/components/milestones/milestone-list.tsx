@@ -59,10 +59,10 @@ function MilestoneRow({ milestone }: { milestone: Milestone }) {
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
           <div className="flex items-center gap-2">
-            <Flag className={`size-4 ${milestone.reachedAt ? "text-emerald-400" : "text-muted-foreground"}`} />
+            <Flag className={`size-4 ${milestone.reachedAt ? "text-emerald-600" : "text-muted-foreground"}`} />
             <span className="font-medium">{milestone.title}</span>
             {milestone.reachedAt && (
-              <span className="rounded-full bg-emerald-500/15 px-2 py-0.5 text-[10px] font-medium text-emerald-400">
+              <span className="rounded-full bg-emerald-500/15 px-2 py-0.5 text-[10px] font-medium text-emerald-600">
                 Reached
               </span>
             )}

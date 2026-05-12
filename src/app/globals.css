@@ -50,40 +50,40 @@
   --color-emerald-glow: oklch(0.765 0.177 163);
 }
 
-/* Dark-first palette with emerald green accent */
+/* Light theme with emerald green accent */
 :root {
-  --background: #0f1117;
-  --foreground: #eef0f4;
-  --card: #181b23;
-  --card-foreground: #eef0f4;
-  --popover: #1e2230;
-  --popover-foreground: #eef0f4;
-  --primary: #22c55e;
-  --primary-foreground: #052e16;
-  --secondary: #1e2230;
-  --secondary-foreground: #c4c9d4;
-  --muted: #1a1d27;
-  --muted-foreground: #7c8296;
-  --accent: #22c55e;
-  --accent-foreground: #052e16;
-  --destructive: #ef4444;
-  --border: #262a36;
-  --input: #262a36;
-  --ring: #22c55e;
-  --chart-1: #22c55e;
-  --chart-2: #3b82f6;
-  --chart-3: #a855f7;
-  --chart-4: #f59e0b;
-  --chart-5: #ef4444;
+  --background: #f8faf9;
+  --foreground: #1a1d23;
+  --card: #ffffff;
+  --card-foreground: #1a1d23;
+  --popover: #ffffff;
+  --popover-foreground: #1a1d23;
+  --primary: #16a34a;
+  --primary-foreground: #ffffff;
+  --secondary: #f1f5f3;
+  --secondary-foreground: #374151;
+  --muted: #f1f5f3;
+  --muted-foreground: #6b7280;
+  --accent: #16a34a;
+  --accent-foreground: #ffffff;
+  --destructive: #dc2626;
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+  --ring: #16a34a;
+  --chart-1: #16a34a;
+  --chart-2: #2563eb;
+  --chart-3: #9333ea;
+  --chart-4: #d97706;
+  --chart-5: #dc2626;
   --radius: 0.875rem;
-  --sidebar: #13151d;
-  --sidebar-foreground: #c4c9d4;
-  --sidebar-primary: #22c55e;
-  --sidebar-primary-foreground: #052e16;
-  --sidebar-accent: #1e2230;
-  --sidebar-accent-foreground: #eef0f4;
-  --sidebar-border: #1e2230;
-  --sidebar-ring: #22c55e;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #374151;
+  --sidebar-primary: #16a34a;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f1f5f3;
+  --sidebar-accent-foreground: #1a1d23;
+  --sidebar-border: #e2e8f0;
+  --sidebar-ring: #16a34a;
 }
 
 @layer base {
@@ -97,7 +97,7 @@
     @apply font-sans;
   }
 
-  /* Smoother scrollbar for dark theme */
+  /* Subtle scrollbar for light theme */
   ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
@@ -106,10 +106,10 @@
     background: transparent;
   }
   ::-webkit-scrollbar-thumb {
-    background: #262a36;
+    background: #cbd5e1;
     border-radius: 4px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #363b4a;
+    background: #94a3b8;
   }
 }

@@ -13,7 +13,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
       <aside className="hidden w-64 shrink-0 border-r border-sidebar-border bg-sidebar md:flex md:flex-col">
         <div className="flex h-16 items-center gap-3 px-5">
           <div className="flex size-9 items-center justify-center rounded-xl bg-emerald-500/15">
-            <Sparkles className="size-5 text-emerald-400" />
+            <Sparkles className="size-5 text-emerald-600" />
           </div>
           <div>
             <span className="text-base font-semibold text-foreground">Dashboard</span>
@@ -35,7 +35,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
 
         <div className="mt-auto border-t border-sidebar-border p-4">
           <div className="rounded-xl bg-emerald-500/10 p-3">
-            <p className="text-xs font-medium text-emerald-400">Tip</p>
+            <p className="text-xs font-medium text-emerald-600">Tip</p>
             <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground">
               Add tasks with start &amp; due dates to see them on the timeline.
             </p>
@@ -67,7 +67,7 @@ function NavItem({
       href={href}
       className="group flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-sidebar-foreground transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
     >
-      <span className="text-muted-foreground transition-colors group-hover:text-emerald-400">
+      <span className="text-muted-foreground transition-colors group-hover:text-emerald-600">
         {icon}
       </span>
       {children}

@@ -81,7 +81,7 @@ export function GanttChart({
                 <div key={project.id} className="space-y-1.5">
                   <Link
                     href={`/projects/${project.id}`}
-                    className="text-sm font-semibold text-foreground transition-colors hover:text-emerald-400"
+                    className="text-sm font-semibold text-foreground transition-colors hover:text-emerald-600"
                   >
                     {project.name}
                   </Link>

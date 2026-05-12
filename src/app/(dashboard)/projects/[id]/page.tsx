@@ -47,7 +47,7 @@ export default async function ProjectDetailPage({
       {/* Back link */}
       <Link
         href="/projects"
-        className="inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-emerald-400"
+        className="inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-emerald-600"
       >
         <ArrowLeft className="size-4" />
         All projects
@@ -84,12 +84,12 @@ export default async function ProjectDetailPage({
         <StatCard
           icon={<CheckCircle2 className="size-5" />}
           iconBg="bg-emerald-500/15"
-          iconColor="text-emerald-400"
+          iconColor="text-emerald-600"
           label="Completed"
           value={stats.doneTasks}
           accent={
             stats.totalTasks > 0 ? (
-              <span className="text-xs font-medium text-emerald-400">{taskProgress}%</span>
+              <span className="text-xs font-medium text-emerald-600">{taskProgress}%</span>
             ) : null
           }
         />
@@ -114,7 +114,7 @@ export default async function ProjectDetailPage({
         <div className="rounded-2xl border border-border/60 bg-card p-5">
           <div className="flex items-center justify-between text-sm">
             <span className="font-medium">Overall Progress</span>
-            <span className="font-semibold text-emerald-400">{taskProgress}%</span>
+            <span className="font-semibold text-emerald-600">{taskProgress}%</span>
           </div>
           <div className="mt-3 h-2 overflow-hidden rounded-full bg-muted">
             <div
