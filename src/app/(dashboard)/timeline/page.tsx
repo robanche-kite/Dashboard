@@ -11,10 +11,10 @@ export default async function TimelinePage() {
   ]);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <header>
-        <h1 className="text-2xl font-semibold">Timeline</h1>
-        <p className="text-sm text-muted-foreground">
+        <h1 className="text-3xl font-bold tracking-tight">Timeline</h1>
+        <p className="mt-1 text-sm text-muted-foreground">
           Gantt view of tasks and milestones across all projects.
         </p>
       </header>

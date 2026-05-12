@@ -31,9 +31,11 @@ export function GanttChart({
 
   if (allDates.length === 0) {
     return (
-      <p className="rounded-md border border-dashed p-8 text-center text-sm text-muted-foreground">
-        Add tasks with dates or milestones to see a timeline.
-      </p>
+      <div className="flex flex-col items-center gap-3 rounded-2xl border border-dashed border-border/60 bg-card/50 px-6 py-16 text-center">
+        <p className="text-sm text-muted-foreground">
+          Add tasks with dates or milestones to see a timeline.
+        </p>
+      </div>
     );
   }
 
@@ -54,32 +56,32 @@ export function GanttChart({
       <div className="text-xs text-muted-foreground">
         {format(rangeStart, "MMM d, yyyy")} → {format(rangeEnd, "MMM d, yyyy")} ({totalDays} days)
       </div>
-      <div className="overflow-x-auto rounded-md border">
-        <div className="min-w-[720px] p-3">
-          <div className="relative h-6 border-b">
+      <div className="overflow-x-auto rounded-2xl border border-border/60 bg-card">
+        <div className="min-w-[720px] p-4">
+          <div className="relative h-7 border-b border-border/40">
             {monthMarkers.map((m) => (
               <div
                 key={m.label}
                 className="absolute top-0 text-[10px] text-muted-foreground"
                 style={{ left: `${(m.offset / totalDays) * 100}%` }}
               >
-                <div className="h-3 w-px bg-border" />
-                <span className="ml-1">{m.label}</span>
+                <div className="h-3 w-px bg-border/60" />
+                <span className="ml-1 font-medium">{m.label}</span>
               </div>
             ))}
           </div>
 
-          <div className="space-y-3 pt-3">
+          <div className="space-y-4 pt-4">
             {projects.map((project) => {
               const projectTasks = tasks.filter((t) => t.projectId === project.id);
               const projectMilestones = milestones.filter((m) => m.projectId === project.id);
               if (projectTasks.length === 0 && projectMilestones.length === 0) return null;
 
               return (
-                <div key={project.id} className="space-y-1">
+                <div key={project.id} className="space-y-1.5">
                   <Link
                     href={`/projects/${project.id}`}
-                    className="text-sm font-medium hover:underline"
+                    className="text-sm font-semibold text-foreground transition-colors hover:text-emerald-400"
                   >
                     {project.name}
                   </Link>
@@ -91,16 +93,16 @@ export function GanttChart({
                       Math.max(1, differenceInCalendarDays(span.end, span.start) + 1) /
                       totalDays;
                     return (
-                      <div key={task.id} className="relative h-7">
+                      <div key={task.id} className="relative h-8">
                         <div
-                          className={`absolute top-1 flex h-5 items-center overflow-hidden rounded px-2 text-[11px] text-white ${
+                          className={`absolute top-1 flex h-6 items-center overflow-hidden rounded-lg px-2.5 text-[11px] font-medium text-white shadow-sm ${
                             task.status === "done"
-                              ? "bg-emerald-500/80"
+                              ? "bg-emerald-500/90"
                               : task.status === "blocked"
-                                ? "bg-rose-500/80"
+                                ? "bg-red-500/80"
                                 : task.status === "in_progress"
                                   ? "bg-blue-500/80"
-                                  : "bg-zinc-500/70"
+                                  : "bg-zinc-600/70"
                           }`}
                           style={{
                             left: `${left * 100}%`,

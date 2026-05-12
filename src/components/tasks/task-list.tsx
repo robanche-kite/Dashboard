@@ -16,7 +16,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Badge } from "@/components/ui/badge";
 import {
   Table,
   TableBody,
@@ -51,11 +50,18 @@ const statusLabel: Record<TaskStatus, string> = {
   done: "Done",
 };
 
-const statusVariant: Record<TaskStatus, "default" | "secondary" | "outline" | "destructive"> = {
-  todo: "outline",
-  in_progress: "default",
-  blocked: "destructive",
-  done: "secondary",
+const statusDot: Record<TaskStatus, string> = {
+  todo: "bg-zinc-400",
+  in_progress: "bg-blue-400",
+  blocked: "bg-red-400",
+  done: "bg-emerald-400",
+};
+
+const priorityColor: Record<string, string> = {
+  low: "text-zinc-400",
+  medium: "text-amber-400",
+  high: "text-orange-400",
+  urgent: "text-red-400",
 };
 
 export function TaskList({ projectId, tasks }: { projectId: string; tasks: Task[] }) {
@@ -65,18 +71,20 @@ export function TaskList({ projectId, tasks }: { projectId: string; tasks: Task[
         <CreateTaskDialog projectId={projectId} />
       </div>
       {tasks.length === 0 ? (
-        <p className="rounded-md border border-dashed p-6 text-center text-sm text-muted-foreground">
-          No tasks yet. Add one to get started.
-        </p>
+        <div className="flex flex-col items-center gap-3 rounded-2xl border border-dashed border-border/60 bg-card/50 px-6 py-12 text-center">
+          <p className="text-sm text-muted-foreground">
+            No tasks yet. Add one to get started.
+          </p>
+        </div>
       ) : (
-        <div className="rounded-md border">
+        <div className="overflow-hidden rounded-2xl border border-border/60 bg-card">
           <Table>
             <TableHeader>
-              <TableRow>
-                <TableHead>Title</TableHead>
-                <TableHead className="w-40">Status</TableHead>
-                <TableHead className="w-28">Priority</TableHead>
-                <TableHead className="w-32">Due</TableHead>
+              <TableRow className="border-border/60 hover:bg-transparent">
+                <TableHead className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Title</TableHead>
+                <TableHead className="w-40 text-xs font-medium uppercase tracking-wider text-muted-foreground">Status</TableHead>
+                <TableHead className="w-28 text-xs font-medium uppercase tracking-wider text-muted-foreground">Priority</TableHead>
+                <TableHead className="w-32 text-xs font-medium uppercase tracking-wider text-muted-foreground">Due</TableHead>
                 <TableHead className="w-12" />
               </TableRow>
             </TableHeader>
@@ -97,7 +105,7 @@ function TaskRow({ task }: { task: Task }) {
   const [pending, startTransition] = useTransition();
 
   return (
-    <TableRow>
+    <TableRow className="border-border/40 transition-colors hover:bg-secondary/50">
       <TableCell className="font-medium">{task.title}</TableCell>
       <TableCell>
         <Select
@@ -111,28 +119,35 @@ function TaskRow({ task }: { task: Task }) {
           }}
           disabled={pending}
         >
-          <SelectTrigger size="sm">
-            <SelectValue />
+          <SelectTrigger size="sm" className="rounded-lg border-border/60">
+            <div className="flex items-center gap-2">
+              <span className={`size-2 rounded-full ${statusDot[task.status]}`} />
+              <SelectValue />
+            </div>
           </SelectTrigger>
           <SelectContent>
             {taskStatuses.map((s) => (
               <SelectItem key={s} value={s}>
-                {statusLabel[s]}
+                <span className="flex items-center gap-2">
+                  <span className={`size-2 rounded-full ${statusDot[s]}`} />
+                  {statusLabel[s]}
+                </span>
               </SelectItem>
             ))}
           </SelectContent>
         </Select>
       </TableCell>
       <TableCell>
-        <Badge variant={statusVariant[task.status]} className="capitalize">
+        <span className={`text-xs font-medium capitalize ${priorityColor[task.priority] ?? "text-muted-foreground"}`}>
           {task.priority}
-        </Badge>
+        </span>
       </TableCell>
       <TableCell className="text-sm text-muted-foreground">{task.dueDate ?? "—"}</TableCell>
       <TableCell>
         <Button
           variant="ghost"
           size="icon"
+          className="text-muted-foreground hover:text-red-400"
           disabled={pending}
           onClick={() => {
             if (!confirm("Delete this task?")) return;

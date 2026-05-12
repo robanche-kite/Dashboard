@@ -2,7 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { Plus, Check, Trash2 } from "lucide-react";
+import { Plus, Check, Trash2, Flag } from "lucide-react";
 import { toast } from "sonner";
 import {
   Dialog,
@@ -16,7 +16,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Badge } from "@/components/ui/badge";
 import {
   createMilestoneAction,
   deleteMilestoneAction,
@@ -37,15 +36,15 @@ export function MilestoneList({
         <CreateMilestoneDialog projectId={projectId} />
       </div>
       {milestones.length === 0 ? (
-        <p className="rounded-md border border-dashed p-6 text-center text-sm text-muted-foreground">
-          No milestones yet.
-        </p>
+        <div className="flex flex-col items-center gap-3 rounded-2xl border border-dashed border-border/60 bg-card/50 px-6 py-12 text-center">
+          <p className="text-sm text-muted-foreground">No milestones yet.</p>
+        </div>
       ) : (
-        <ul className="space-y-2">
+        <div className="grid gap-3 sm:grid-cols-2">
           {milestones.map((m) => (
             <MilestoneRow key={m.id} milestone={m} />
           ))}
-        </ul>
+        </div>
       )}
     </div>
   );
@@ -56,47 +55,54 @@ function MilestoneRow({ milestone }: { milestone: Milestone }) {
   const [pending, startTransition] = useTransition();
 
   return (
-    <li className="flex items-center justify-between gap-3 rounded-md border p-3">
-      <div className="min-w-0">
-        <div className="flex items-center gap-2">
-          <span className="font-medium">{milestone.title}</span>
-          {milestone.reachedAt && (
-            <Badge variant="secondary">Reached</Badge>
-          )}
+    <div className={`rounded-2xl border p-4 transition-colors ${milestone.reachedAt ? "border-emerald-500/30 bg-emerald-500/5" : "border-border/60 bg-card"}`}>
+      <div className="flex items-start justify-between gap-3">
+        <div className="min-w-0">
+          <div className="flex items-center gap-2">
+            <Flag className={`size-4 ${milestone.reachedAt ? "text-emerald-400" : "text-muted-foreground"}`} />
+            <span className="font-medium">{milestone.title}</span>
+            {milestone.reachedAt && (
+              <span className="rounded-full bg-emerald-500/15 px-2 py-0.5 text-[10px] font-medium text-emerald-400">
+                Reached
+              </span>
+            )}
+          </div>
+          <p className="mt-1 text-xs text-muted-foreground">{milestone.date}</p>
         </div>
-        <div className="text-sm text-muted-foreground">{milestone.date}</div>
+        <div className="flex shrink-0 items-center gap-1">
+          <Button
+            variant="outline"
+            size="sm"
+            className="rounded-lg text-xs"
+            disabled={pending}
+            onClick={() =>
+              startTransition(async () => {
+                await toggleMilestoneAction(milestone.id, milestone.projectId);
+                router.refresh();
+              })
+            }
+          >
+            <Check className="size-3.5" />
+            {milestone.reachedAt ? "Unreach" : "Reached"}
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="text-muted-foreground hover:text-red-400"
+            disabled={pending}
+            onClick={() => {
+              if (!confirm("Delete this milestone?")) return;
+              startTransition(async () => {
+                await deleteMilestoneAction(milestone.id, milestone.projectId);
+                router.refresh();
+              });
+            }}
+          >
+            <Trash2 className="size-4" />
+          </Button>
+        </div>
       </div>
-      <div className="flex items-center gap-1">
-        <Button
-          variant="outline"
-          size="sm"
-          disabled={pending}
-          onClick={() =>
-            startTransition(async () => {
-              await toggleMilestoneAction(milestone.id, milestone.projectId);
-              router.refresh();
-            })
-          }
-        >
-          <Check className="size-4" />
-          {milestone.reachedAt ? "Unreach" : "Reached"}
-        </Button>
-        <Button
-          variant="ghost"
-          size="icon"
-          disabled={pending}
-          onClick={() => {
-            if (!confirm("Delete this milestone?")) return;
-            startTransition(async () => {
-              await deleteMilestoneAction(milestone.id, milestone.projectId);
-              router.refresh();
-            });
-          }}
-        >
-          <Trash2 className="size-4" />
-        </Button>
-      </div>
-    </li>
+    </div>
   );
 }
 
