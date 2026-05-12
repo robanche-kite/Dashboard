@@ -6,13 +6,16 @@ import {
   ListTodo,
   Flag,
   Target,
+  Pencil,
 } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { getProject, getProjectStats } from "@/lib/services/projects";
 import { listTasksByProject } from "@/lib/services/tasks";
 import { listMilestonesByProject } from "@/lib/services/milestones";
 import { TaskList } from "@/components/tasks/task-list";
 import { MilestoneList } from "@/components/milestones/milestone-list";
 import { DeleteProjectButton } from "@/components/projects/delete-project-button";
+import { EditProjectDialog } from "@/components/projects/edit-project-dialog";
 
 const statusConfig: Record<string, { label: string; dot: string }> = {
   active: { label: "Active", dot: "bg-emerald-400" },
@@ -69,7 +72,18 @@ export default async function ProjectDetailPage({
             </p>
           )}
         </div>
-        <DeleteProjectButton id={project.id} />
+        <div className="flex items-center gap-2">
+          <EditProjectDialog
+            project={project}
+            trigger={
+              <Button variant="outline" size="sm" className="gap-1.5 rounded-xl">
+                <Pencil className="size-3.5" />
+                Edit
+              </Button>
+            }
+          />
+          <DeleteProjectButton id={project.id} />
+        </div>
       </header>
 
       {/* Stat cards */}
